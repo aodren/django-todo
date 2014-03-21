@@ -1,0 +1,24 @@
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.views import generic
+#from django.template import RequestContext, loader
+
+from todoList.models import TodoList, TodoItem
+# Create your views here.
+
+def index(request):
+    todoListe_list = TodoList.objects.all().order_by('-title')
+    context = {'todoListe_list': todoListe_list}
+    return render(request, 'todoList/index.html', context)
+def IndexView(generic.ListView):
+    template_name = 'todoList/index.html'
+    context_object_name = 'todoListe_list'
+
+    def get_queryset(self):
+        """Return the published todo lists."""
+        return TodoList.objects]
+
+def detail(request, todoList_id):
+    todoList = get_object_or_404(TodoList, pk=todoList_id)
+    return render(request, 'todoList/detail.html', {'todoList': todoList})

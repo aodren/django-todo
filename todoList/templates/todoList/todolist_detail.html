@@ -1,0 +1,25 @@
+{% extends "todoList/index.html" %}
+{% load static %}
+{% block content %}
+{% url 'add_categ' as url_add %}
+<a href="{{ url_add }}"><img src={% static "todolist/img/add.png" %} alt="Nouveau" height="30" width="30"></a>
+{% url 'delete_categ' object.id as url_del %}
+<a href="{{ url_del }}"><img src={% static "todolist/img/delete.png" %} alt="Supprimer" height="30" width="30"></a>
+{% url 'update_categ' object.id as url_upd %}
+<a href="{{ url_upd }}"><img src={% static "todolist/img/edit.png" %} alt="Modifier" height="30" width="30"></a>
+{% url 'add_todo' object.id as url_add %}
+<a href="{{ url_add }}"><img src={% static "todolist/img/new.png" %} alt="Ajouter" height="30" width="30"></a>
+    <ul>
+    {% for tache in todoList.todoitem_set.all %}
+      {% if not tache.isComplete %}
+        <h2>
+		{{ tache.title }}
+		<a href="{% url 'detail_todo' tache.pk %}"><img src={% static "todolist/img/detail.png" %} alt="details" height="20" width="20"></a>
+		<a href="{% url 'update_todo' tache.pk %}"><img src={% static "todolist/img/edit.png" %} alt="Modifier" height="20" width="20"></a>
+		<a href="{% url 'delete_todo' tache.pk %}"><img src={% static "todolist/img/delete.png" %} alt="Supprimer" height="20" width="20"></a>
+	</h2>
+	<div class="description">{{ tache.description|linebreaks }}</div>
+      {% endif %}
+    {% endfor %}
+    </ul>
+{% endblock content %}

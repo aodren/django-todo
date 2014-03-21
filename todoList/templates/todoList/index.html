@@ -1,0 +1,29 @@
+{% extends "todoList/skeleton.html" %}
+{% load staticfiles %}
+{% block link %}
+<style>
+.description { display: none;}
+</style>
+{% endblock link %}
+
+{% block script %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("h2").click(function(){
+    $(this).next(".description").toggle();
+  });
+});
+</script>
+{% endblock script %}
+{% block menu %}
+{% if todoListe_list %}
+    <ul>
+    {% for todolist in todoListe_list %}
+        <li><a href={% url 'detail_categ' todolist.id %}>{{ todolist.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Rien &agrave; faire.</p>
+{% endif %}
+{% endblock menu %}
